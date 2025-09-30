@@ -27,8 +27,12 @@ const StatsPage = () => {
         const fetchData = async () => {
             try {
                 const [savingsRes, expensesRes] = await Promise.all([
-                    fetch("/api/savings", { headers: { Authorization: `Bearer ${token}` } }),
-                    fetch("/api/expenses", { headers: { Authorization: `Bearer ${token}` } }),
+                    fetch(`${process.env.REACT_APP_API_BASE}/api/savings`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
+                    fetch(`${process.env.REACT_APP_API_BASE}/api/expenses`, {
+                        headers: { Authorization: `Bearer ${token}` },
+                    }),
                 ]);
                 const savingsData = await savingsRes.json();
                 const expensesData = await expensesRes.json();

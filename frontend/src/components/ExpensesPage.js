@@ -19,7 +19,7 @@ const ExpensesPage = () => {
 
     const fetchEntries = async () => {
       try {
-        const res = await fetch("/api/expenses", {
+        const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/expenses`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -39,7 +39,7 @@ const ExpensesPage = () => {
       note: "",
     };
     try {
-      const res = await fetch("/api/expenses", {
+      const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/expenses`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const ExpensesPage = () => {
 
   const persistEntry = debounce(async (id, updatedFields) => {
     try {
-      await fetch(`/api/expenses/${id}`, {
+      await fetch(`${process.env.REACT_APP_API_BASE}/api/expenses/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const ExpensesPage = () => {
 
   const deleteEntry = async (id) => {
     try {
-      await fetch(`/api/expenses/${id}`, {
+      await fetch(`${process.env.REACT_APP_API_BASE}/api/expenses/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

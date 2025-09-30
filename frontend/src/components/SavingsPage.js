@@ -19,7 +19,7 @@ const SavingsPage = () => {
 
     const fetchEntries = async () => {
       try {
-        const res = await fetch("/api/savings", {
+        const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/savings`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -39,7 +39,7 @@ const SavingsPage = () => {
       note: "",
     };
     try {
-      const res = await fetch("/api/savings", {
+      const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/savings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const SavingsPage = () => {
 
   const persistEntry = debounce(async (id, updatedFields) => {
     try {
-      await fetch(`/api/savings/${id}`, {
+      await fetch(`${process.env.REACT_APP_API_BASE}/api/savings/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const SavingsPage = () => {
 
   const deleteEntry = async (id) => {
     try {
-      await fetch(`/api/savings/${id}`, {
+      await fetch(`${process.env.REACT_APP_API_BASE}/api/savings/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

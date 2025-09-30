@@ -13,7 +13,7 @@ const Navbar = () => {
     const fetchUser = async () => {
       if (!token) return;
       try {
-        const res = await fetch("/api/auth/me", {
+        const res = await fetch(`${process.env.REACT_APP_API_BASE}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
