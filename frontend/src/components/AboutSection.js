@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
+import { toast } from "react-toastify";
 
 const About = () => {
   return (
@@ -33,6 +34,7 @@ const About = () => {
         <div className="flex space-x-4 mt-6">
           <Link
             to="/savings"
+            onClick={() => toast.info("Redirecting to Savings")}
             className="flex items-center bg-blue-600 text-white px-6 py-3 rounded-xl shadow-md hover:bg-blue-700 transition"
           >
             Get Started <ArrowRight className="ml-2 w-5 h-5" />

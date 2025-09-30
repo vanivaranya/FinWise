@@ -12,7 +12,7 @@ const categories = [
   "Other",
 ];
 
-const SavingsTable = ({ entries, onChangeEntry }) => {
+const SavingsTable = ({ entries, onChangeEntry, onDeleteEntry }) => {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md text-sm">
@@ -22,12 +22,12 @@ const SavingsTable = ({ entries, onChangeEntry }) => {
             <th className="py-3 px-4 border-b text-left">Amount</th>
             <th className="py-3 px-4 border-b text-left">Category</th>
             <th className="py-3 px-4 border-b text-left">Note</th>
+            <th className="py-3 px-4 border-b text-left">Actions</th>
           </tr>
         </thead>
         <tbody>
           {entries.map((entry, idx) => (
-            <tr key={idx} className="hover:bg-gray-50">
-              {/* Date */}
+            <tr key={entry._id || idx} className="hover:bg-gray-50">
               <td className="py-2 px-4 border-b">
                 <input
                   type="text"
@@ -36,8 +36,6 @@ const SavingsTable = ({ entries, onChangeEntry }) => {
                   className="bg-gray-50 border rounded px-2 py-1 w-full text-gray-700"
                 />
               </td>
-
-              {/* Amount */}
               <td className="py-2 px-4 border-b">
                 <input
                   type="number"
@@ -47,8 +45,6 @@ const SavingsTable = ({ entries, onChangeEntry }) => {
                   className="border rounded px-2 py-1 w-full text-gray-700"
                 />
               </td>
-
-              {/* Category */}
               <td className="py-2 px-4 border-b">
                 <select
                   value={entry.category}
@@ -62,8 +58,6 @@ const SavingsTable = ({ entries, onChangeEntry }) => {
                   ))}
                 </select>
               </td>
-
-              {/* Note */}
               <td className="py-2 px-4 border-b">
                 <input
                   type="text"
@@ -71,6 +65,14 @@ const SavingsTable = ({ entries, onChangeEntry }) => {
                   onChange={(e) => onChangeEntry(idx, "note", e.target.value)}
                   className="border rounded px-2 py-1 w-full text-gray-700"
                 />
+              </td>
+              <td className="py-2 px-4 border-b">
+                <button
+                  onClick={() => onDeleteEntry(entry._id)}
+                  className="text-red-600 hover:underline text-sm"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}

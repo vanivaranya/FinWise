@@ -1,0 +1,20 @@
+{
+    "short_name": "FinWise",
+    "name": "FinWise App",
+    "icons": [
+        {
+            "src": "images/logo.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "images/logo.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#1976d2",
+    "background_color": "#ffffff"
+}

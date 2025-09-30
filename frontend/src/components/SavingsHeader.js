@@ -1,8 +1,23 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { debounce } from "../utils/debounce";
 
 const SavingsHeader = ({ total }) => {
   const [budget, setBudget] = useState(5000); // default budget
   const percentage = budget > 0 ? ((total / budget) * 100).toFixed(1) : 0;
+
+  const showBudgetToast = debounce((value) => {
+    toast.info(`Budget updated to ₹${value}`);
+  }, 1000);
+  const handleBudgetChange = (e) => {
+    const value = Number(e.target.value);
+    if (isNaN(value) || value <= 0) {
+      toast.error("Invalid budget amount");
+      return;
+    }
+    setBudget(value);
+    showBudgetToast(value);
+  };
 
   return (
     <div className="flex justify-between items-start mb-8">
@@ -16,7 +31,7 @@ const SavingsHeader = ({ total }) => {
           <input
             type="number"
             value={budget}
-            onChange={(e) => setBudget(Number(e.target.value))}
+            onChange={handleBudgetChange}
             className="w-full border rounded px-2 py-1 text-blue-900 focus:outline-none focus:ring focus:ring-blue-300"
           />
         </div>

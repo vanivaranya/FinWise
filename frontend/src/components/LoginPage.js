@@ -1,13 +1,31 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login clicked:", { email, password });
-    // 🔑 later you’ll connect with backend (JWT auth)
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem("token", data.token);
+        toast.success("Login successful!");
+        navigate("/");
+      } else {
+        toast.error(data.message || "Login failed");
+      }
+    } catch (err) {
+      toast.error("Server error. Please try again.");
+    }
   };
 
   return (
@@ -59,7 +77,13 @@ const LoginPage = () => {
         {/* Extra */}
         <p className="text-sm text-center text-blue-600 mt-4">
           Don’t have an account?{" "}
-          <span className="text-blue-800 font-medium cursor-pointer hover:underline">
+          <span
+            onClick={() => {
+              toast.info("Redirecting to signup...");
+              navigate("/signup");
+            }}
+            className="text-blue-800 font-medium cursor-pointer hover:underline"
+          >
             Sign up
           </span>
         </p>
